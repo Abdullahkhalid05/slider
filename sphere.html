@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            background: black;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: relative;
+            box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.64);
+            margin-top: 26px;
+        }
+
+        .slider-inner {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider-open:checked + .slider-item {
+            position: static;
+            opacity: 100;
+        }
+
+        .slider-item {
+            position: absolute;
+            opacity: 0;
+            -webkit-transition: opacity 0.6s ease-out;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .slider-item img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .slider-control {
+            background: rgba(0, 0, 0, 0.28);
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+            font-size: 40px;
+            height: 40px;
+            line-height: 35px;
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translate(0, -50%);
+            cursor: pointer;
+            -ms-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            text-align: center;
+            width: 40px;
+            z-index: 10;
+        }
+
+        .slider-control.prev {
+            left: 2%;
+        }
+
+        .slider-control.next {
+            right: 2%;
+        }
+
+        .slider-control:hover {
+            background: rgba(0, 0, 0, 0.8);
+            color: #aaaaaa;
+        }
+
+        #slider-1:checked ~ .control-1,
+        #slider-2:checked ~ .control-2,
+        #slider-3:checked ~ .control-3,
+        #slider-4:checked ~ .control-4 {
+            display: block;
+        }
+
+        .slider-indicators {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            bottom: 2%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .slider-indicators li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .slider-bullet {
+            color: #fff;
+            cursor: pointer;
+            display: block;
+            font-size: 35px;
+        }
+
+        .slider-bullet:hover {
+            color: #aaaaaa;
+        }
+
+        #slider-1:checked
+          ~ .control-1
+          ~ .slider-indicators
+          li:nth-child(1)
+          .slider-bullet,
+        #slider-2:checked
+          ~ .control-2
+          ~ .slider-indicators
+          li:nth-child(2)
+          .slider-bullet,
+        #slider-3:checked
+          ~ .control-3
+          ~ .slider-indicators
+          li:nth-child(3)
+          .slider-bullet,
+        #slider-4:checked
+          ~ .control-4
+          ~ .slider-indicators
+          li:nth-child(4)
+          .slider-bullet {
+            color: #428bca;
+        }
+
+        #title {
+            width: 100%;
+            position: absolute;
+            padding: 0px;
+            margin: 0px auto;
+            text-align: center;
+            font-size: 27px;
+            color: rgba(255, 255, 255, 1);
+            font-family: "Open Sans", sans-serif;
+            z-index: 9999;
+            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33),
+                -1px 0px 2px rgba(255, 255, 255, 0);
+        }
+    </style>
+</head>
+<body>
+    <!-- <div id="slider-container" style="display: none;">
+        <div class="slider">
+            <div class="slider-inner">
+                <input class="slider-open" type="radio" id="slider-1" name="slider" aria-hidden="true" hidden="" checked="checked">
+                <div class="slider-item">
+                    <img src="http://fakeimg.pl/2000x800/0079D8/fff/?text=CSS">
+                </div>
+                <input class="slider-open" type="radio" id="slider-2" name="slider" aria-hidden="true" hidden="">
+                <div class="slider-item">
+                    <img src="http://fakeimg.pl/2000x800/DA5930/fff/?text=Slider">
+                </div>
+                <input class="slider-open" type="radio" id="slider-3" name="slider" aria-hidden="true" hidden="">
+                <div class="slider-item">
+                    <img src="http://fakeimg.pl/2000x800/F90/fff/?text=Without">
+                </div>
+                <input class="slider-open" type="radio" id="slider-4" name="slider" aria-hidden="true" hidden="">
+                <div class="slider-item">
+                    <img src="http://fakeimg.pl/2000x800/F90/fff/?text=Javascript">
+                </div>
+                <label for="slider-3" class="slider-control prev control-1">‹</label>
+                <label for="slider-2" class="slider-control next control-1">›</label>
+                <label for="slider-1" class="slider-control prev control-2">‹</label>
+                <label for="slider-3" class="slider-control next control-2">›</label>
+                <label for="slider-2" class="slider-control prev control-3">‹</label>
+                <label for="slider-4" class="slider-control next control-3">›</label>
+                <label for="slider-3" class="slider-control prev control-4">‹</label>
+                <label for="slider-1" class="slider-control next control-4">›</label>
+                <ol class="slider-indicators">
+                    <li>
+                        <label for="slider-1" class="slider-bullet">•</label>
+                    </li>
+                    <li>
+                        <label for="slider-2" class="slider-bullet">•</label>
+                    </li>
+                    <li>
+                        <label for="slider-3" class="slider-bullet">•</label>
+                    </li>
+                    <li>
+                        <label for="slider-4" class="slider-bullet">•</label>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <canvas id="three-canvas" data-engine="three.js r166" width="1366" height="607" style="display: block; width: 1366px; height: 607px;"></canvas> -->
+    <script src="sphere.js" type="module"></script>
+</body>
+</html>
